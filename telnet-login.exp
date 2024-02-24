@@ -1,0 +1,11 @@
+#!/usr/bin/expect
+spawn telnet smtp.mailchannels.net 2525
+expect "220 relay.mailchannels.net ESMTP"
+send "ehlo mc\r"
+expect "250 STARTTLS"
+send "auth login\r"
+expect "334 VXNlcm5hbWU6"
+send "username in base64\r"
+expect "334 UGFzc3dvcmQ6"
+send "password in base64\r"
+interact

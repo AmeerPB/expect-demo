@@ -1,0 +1,13 @@
+#!/usr/bin/expect
+spawn ssh root@ip
+expect "password"
+send "PASSWORD\r"
+expect "root@IP"
+send "scp user@IP:file /tmp/\r"
+expect "password"
+send "PASSWORD\r"
+expect "root@IP"
+send "opkg install /tmp/file\r"
+expect "root@IP"
+send "command\r"
+interact

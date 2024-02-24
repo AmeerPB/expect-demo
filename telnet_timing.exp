@@ -1,0 +1,22 @@
+#!/usr/bin/expect -f
+set timeout 40
+set host <host address/IP>
+set port 25
+
+spawn telnet $host $port
+
+expect {
+    timeout { puts "Connection timed out"; exit 1 }
+    "Escape character is" { }
+}
+
+while {1} {
+    expect {
+        timeout { puts "Timeout waiting for response"; exit 1 }
+        -re "(.*)\n" {
+            set response_time [clock seconds]
+            set formatted_time [clock format $response_time -format "%Y-%m-%d %H:%M:%S"]
+            puts "$expect_out(0,string) - Time: $formatted_time"
+        }
+    }
+}
